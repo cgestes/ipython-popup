@@ -35,7 +35,7 @@ define(function(require) {
         this.notebook_name = nbname;
         this.notebook_path = nbpath;
         this.base_url = '/';
-        this.ws_url = undefined;
+        this.ws_url = location.protocol.replace('http', 'ws') + "//" + location.host; //undefined should works once https://github.com/ipython/ipython/pull/7763 is merged
 
         this.events = events;
 
@@ -88,7 +88,7 @@ define(function(require) {
 
             var cc = new codecell.CodeCell(this.session.kernel, options);
             cc.set_text(codetorun);
-            var btn = $('<input type="button" id="field" name="Execute"/>');
+            var btn = $('<input type="button" id="field" value="Execute"/>');
             btn.on("click", function() {
                 console.log('clicked');
                 cc.execute();
